@@ -33,7 +33,7 @@ async def create(student : Student):
     if data.is_insert :
         return {
             "success ": True,
-            "msg": "student created successfully !!"
+            "msg": "student created successfully!!"
         }
     else :
         return{
@@ -43,7 +43,7 @@ async def create(student : Student):
 
 
 @app.put("/api/update/{id}")
-async def update(id:int,updat: Student):
+async def update(id : int,updat: Student):
     con.execute(students.update().values(
         name=updat.name,
         email=updat.email,
@@ -69,14 +69,9 @@ async def delete(id:int):
 
 @app.get("/api/search/{search}")
 async  def search_id(search):
-    data=con.execute(students.select().where(students.c.id.like('%'+search+'%'))).fetchall()
-    if data:
-      return {
+    data=con.execute(students.select().where(students.c.name.like('%'+search+'%'))).fetchall()
+    return {
         "success":True,
         "data":data
     }
-    else:
-        return {
-            "success": True,
-            "msg":"some problem is raised !!"
-        }
+
